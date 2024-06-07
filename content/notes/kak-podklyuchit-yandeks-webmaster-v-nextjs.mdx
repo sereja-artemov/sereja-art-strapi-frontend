@@ -1,0 +1,45 @@
+---
+type: Note
+title: Как подключить Яндекс Вебмастер в NextJS
+excerpt: Подтверждаем права на сайт для Яндекс Webmaster c помощью кастомного метатега в NextJS
+date: 2024-02-26
+published: true
+category: [seo, web-dev]
+keywords: Яндекс Вебмастер, как подключить яндекс Вебмастер, yandex webmaster nextjs
+---
+
+Существует три стандартных способа подключения Яндекс Вебмастер к&nbsp;сайту, который сделан с&nbsp;помощью NextJS. Верификацию можно пройти с&nbsp;помощью:
+
+1. HTML-файла
+2. Метатега, который нужно добавить в&nbsp;head
+3. DNS-записи
+
+## Подключение с помощью метатега
+
+С&nbsp;первым и&nbsp;третим способом все понятно, а&nbsp;вот подключение через метатег может ввести вас в&nbsp;ступор и&nbsp;заставить читать документацию.
+
+Для подключения через метатег нам нужно добавить в&nbsp;код главной страницы сайта (в&nbsp;раздел head) метатег: ```<meta name="yandex-verification" content="XXXXXXXXXXXXXXXX" />```, который мы&nbsp;получили на&nbsp;странице подтверждения прав в&nbsp;вебмастере.
+
+### Ну и где тут искать head?
+
+В&nbsp;NextJS нам нужно отправиться в ```layout.tsx``` или ```page.tsx``` и&nbsp;создать <a target="_blank" rel="nofollow" href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#the-metadata-object">The metadata object</a> с&nbsp;кастомными параметрами, если его еще нет. Метаданные будут сгенерированы на&nbsp;основании настроек в&nbsp;этом объекте.
+
+<CodeTitle title='layout.tsx | page.tsx' lang="ts" />
+```ts
+export const metadata = {
+  other: {
+    ['yandex-verification']: 'XXXXXXXXXXXXXXXX',
+  },
+}
+```
+Вместо ```XXXXXXXXXXXXXXXX``` вставляете свой код из&nbsp;Яндекс Вебмастера.
+
+<CodeTitle title='<head> output' lang="" />
+```html
+<meta name="yandex-verification" content="XXXXXXXXXXXXXXXX" />
+```
+
+Таким образом вы&nbsp;можете подключать любые кастомные метатеги в&nbsp;NextJS.
+
+Остались вопросы?
+Кто понял&nbsp;&mdash; тот понял, а&nbsp;кто не&nbsp;понял&nbsp;&mdash; тот идет в&nbsp;документацию <a target="_blank" rel="nofollow" href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata">Metadata Object and generateMetadata Options</a>

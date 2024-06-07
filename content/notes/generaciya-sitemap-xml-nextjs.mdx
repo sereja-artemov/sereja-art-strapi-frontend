@@ -1,0 +1,106 @@
+---
+type: Note
+date: 2024-03-07
+title: Как сгенерировать sitemap.xml в Next.js
+excerpt: Динамически создаю карту сайта sitemap.xml на Next.js
+published: true
+category: [web-dev, seo, nextjs]
+keywords: sitemap.xml, sitemap nextjs, карта сайта nextjs
+---
+
+Файл sitemap.xml или в&nbsp;простонародье&nbsp;&mdash; карта сайта&nbsp;&mdash; помогает поисковым роботам индексировать сайт. Поисковый робот смотрит на&nbsp;карту и&nbsp;понимает какие страницы более важные, где они находятся и&nbsp;когда были обновлены.
+
+Иногда я&nbsp;добавляю новые записи и&nbsp;заметки в&nbsp;блог, и&nbsp;их&nbsp;нужно индексировать.
+Можно каждый раз обновлять `sitemap.xml` руками, но&nbsp;это такое, сами понимаете... да&nbsp;и&nbsp;зачем, когда в&nbsp;Next.js есть возможность автоматически генерировать карту сайта.
+
+<CodeTitle title='app/sitemap.ts' lang="ts" />
+```ts
+import { MetadataRoute } from 'next';
+import { getPosts } from '../lib/getPosts';
+import { navigationRoutes } from '../data/navigationRoutes';
+import { PostType } from '../lib/types';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // получаю записи блога
+  const blogsData = await getPosts('blog');
+  const notesData = await getPosts('notes');
+
+  // для каждого роута создаю запись в xml
+  const navRoutes = navigationRoutes.map((element) => ({
+      url: `${process.env.HOST}${element.route}`,
+      lastModified: new Date(),
+  }));
+
+  // для каждой записи блога создаю запись в xml
+  const blogsSitemap: MetadataRoute.Sitemap = blogsData.map((post: PostType) => ({
+    url: `${process.env.HOST}/blog/${post.slug}`,
+    lastModified: post.date,
+  }));
+
+  // для каждой записи заметок создаю запись в xml
+  const notesSitemap: MetadataRoute.Sitemap = notesData.map((post: PostType) => ({
+    url: `${process.env.HOST}/notes/${post.slug}`,
+    lastModified: post.date,
+  }));
+
+  return [
+    {
+      url: `${process.env.HOST}`,
+      lastModified: new Date(),
+    },
+    ...navRoutes,
+    ...blogsSitemap,
+    ...notesSitemap,
+  ];
+}
+```
+После генерации получаем такой XML документ.
+
+<CodeTitle title='http://localhost:3000/sitemap.xml' lang="xml" />
+```xml
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<script/>
+  <url>
+    <loc>http://localhost:3000</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/about</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/projects</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/services</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notes</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/contacts</loc>
+    <lastmod>2024-03-07T19:46:16.089Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/how-to-delete-1c-bitrix</loc>
+    <lastmod>2019-11-03T00:00:00.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:3000/notes/pizza-recipe</loc>
+    <lastmod>2023-12-23T00:00:00.000Z</lastmod>
+  </url>
+</urlset>
+```
+Можно еще добавить `changeFrequency` и `priority`, но я забил.
+
+Официальная документация тут: <a href="https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap" target="_blank" rel="nofollow">https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap</a>
+
+Успехов и хорошего дня!

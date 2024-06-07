@@ -1,0 +1,84 @@
+---
+type: Post
+title: Эффект обводки текста с анимацией заливки при наведении на чистом CSS
+date: 2024-02-17
+published: true
+category: other
+keywords: css эффект обводка, css обводка, css эффект заливки текста
+excerpt: Рассказываю как сделать CSS эффект обводки текста с заливкой при наведении
+coverImage: http://tech.sereja-art.ru/upload/blogs/css-effekt-obvodki-teksta-s-animaciej-zalivki/css-effekt-obvodki-teksta-s-animaciej-zalivki.jpg
+---
+
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/css-effekt-obvodki-teksta-s-animaciej-zalivki/css-effekt-obvodki-teksta-s-animaciej-zalivki.webp" alt="css эффект обводки с анимацией заливки пример" />
+
+Хотите добавить интересный CSS эффект на&nbsp;вашем сайте? Обводка текста с&nbsp;заливкой при наведении выглядит стильно и&nbsp;делается на&nbsp;чистом CSS, я&nbsp;ее&nbsp;использовал для ссылок в&nbsp;меню. Не, ну&nbsp;а&nbsp;чо? Красиво&nbsp;же. 
+
+Вот пример кода на&nbsp;SCSS, медиазапросы для адаптивности напишете сами, у&nbsp;меня тут миксины, короче, кто понял тот понял:
+
+Внутрь ссылки кладем `span` с `data-text`. Данные в `data-text` и&nbsp;текстовый контент внутри `span` всегда должны совпадать, т.к.&nbsp;мы&nbsp;создадим с&nbsp;помощью псевдоэлемента текстовый контент, который будет служить заливкой при наведении.
+
+<CodeTitle title='HTML разметка ссылки с обводкой' lang='html' />
+```html
+<a href="#" class="link">
+  <span data-text="Контакты">Контакты</span>
+</a>
+```
+Подробно не&nbsp;буду расписывать каждую строчку стилей, сами разберетесь. Успехов!
+
+<CodeTitle title='CSS(SCSS) стили для текста' lang='scss' />
+```scss
+.link {
+  display: inline-block;
+  margin: 0;
+  font-size: 65px;
+  line-height: 1.5;
+  font-weight: 900;
+  color: transparent;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #101921;
+  -webkit-text-fill-color: transparent;
+
+  @include media-M {
+    font-size: 55px;
+  }
+
+  @include media-S {
+    font-size: 9vw;
+  }
+
+  @include media-XS {
+    font-size: 11vw;
+  }
+
+  &::selection {
+    background: #101921;
+    color: #fff;
+  }
+
+  span {
+    width: 100%;
+    display: block;
+    position: relative;
+
+    &::before {
+      display: block;
+      width: 0;
+      color: #101921;
+      overflow: hidden;
+      position: absolute;
+      content: attr(data-text);
+      transition: all 1s cubic-bezier(0.84, 0, 0.08, 0.99);
+      -webkit-text-stroke-width: 0;
+      -webkit-text-stroke-color: #101921;
+      -webkit-text-fill-color: #101921;
+    }
+
+    &:hover::before {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+```

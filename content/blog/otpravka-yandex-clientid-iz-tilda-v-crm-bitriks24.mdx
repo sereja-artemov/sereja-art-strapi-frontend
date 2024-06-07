@@ -1,0 +1,44 @@
+---
+title: Отправка Яндекс ClientID из Tilda в CRM Битрикс24
+date: 2020-09-04
+published: true
+category: [tilda, other]
+keywords: ClientID, yandex ClientID, ClientID Битрикс24, tilda clientid
+excerpt: Настройка отправки Яндекс ClientID в CRM Битрикс24 из форм Tilda
+coverImage: http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-tilda-v-crm-bitriks24/clientid-preview.jpg
+---
+
+## Что такое ClientID в Яндекс Метрике?
+
+ClientID — это идентификатор, который Яндекс.Метрика автоматически присваивает каждому посетителю сайта. ClientID уникален для каждого пользователя. Используется для передачи параметров посетителей и для отслеживания офлайн-конверсий.
+
+Идентификатор создается браузером, если посетитель просматривал сайт из двух разных браузеров, в Яндекс.Метрике будет зафиксировано два разных ClientID и два разных пользователя.
+
+По умолчанию ClientID не передается формами Tilda, давайте это исправим.
+
+В каждой форме создаем скрытое поле, в которое будем записывать ClientID.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-tilda-v-crm-bitriks24/tilda-clientid.png" alt="создаем скрытое поле в форме Tilda" />
+
+Вставляем в подвал сайта код, который будет вытаскивать ClientID посетителя и записывать в скрытое поле. ```yaCounterXXXXXXXX.getClientID();``` - не забудьте указать свой номер счетчика вместо ХХХХХХХХ.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-tilda-v-crm-bitriks24/tilda-clientid-2.png" alt="Вставляем в подвал сайта код" />
+
+<CodeTitle title='Код скрипта' lang='js' />
+  ```js
+  <script>
+    $( document ).ready(function () {
+      let ee = setInterval(function () {
+        if (typeof window.ym != 'undefined') { //если метрика загрузилась
+         $('input[name="ycli"]').each(function () { //находим все поля с нужным атрибутом
+          let clientYandexId = yaCounterХХХХХХХХ.getClientID(); //получаем id
+         $('input[name="ycli"]').val(clientYandexId); //заменяем в input значение value
+         });
+        clearInterval(ee);
+      } else {
+        console.log('Метрика не инициализирована'); //если метрика не загрузилась
+      }
+    }, 500); // 0,5 секунды ждать
+  });
+  </script>
+  ```
+
+Сохраняем и переопубликовываем страницы.

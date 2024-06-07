@@ -1,0 +1,21 @@
+---
+type: Note
+date: 2024-03-16
+title: Как удалить крестик из input[type="search"]
+excerpt: CSS код, который удаляет стандартный крестик очистки поля поиска input[type="search"]
+published: true
+category: [web-dev]
+keywords: disabel input[type="search"] clear cross, удалить крестик input[type="search"]
+---
+
+Стандартный крестик очистки поля в input type="search" выглядит не очень красиво. Его можно удалить и добавить кастомный.
+
+<CodeTitle title='Код для удаления крестика input[type="search"] из всех браузеров' lang="css" />
+```css
+input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+```

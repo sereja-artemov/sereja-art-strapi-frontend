@@ -1,0 +1,102 @@
+---
+type: Note
+title: Next.js 14.1 prerendering Error
+excerpt: Проблема в том, что на страницах используется клиентский компонент useSearchParams(), usePathname()
+date: 2024-02-21
+published: true
+category: bugfix
+keywords: nextjs, nextjs14, nextjs prerendering error
+---
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/nextjs-14.1-prerendering-page-error/prerendering-error.png" alt="nextjs prerendering error" />
+
+## Ошибка - Error occurred prerendering page
+
+После запуска сборки проекта, получаем ошибку:
+
+<CodeTitle title='Ошибка после запуска npm run build' lang="bash" />
+```txt
+Error occurred prerendering page "/_not-found". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/contacts". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+```
+
+<CodeTitle title='Страницы с ошибками' lang="bash" />
+```txt
+> Export encountered errors on following paths:
+        /_not-found
+        /about/page: /about
+        /blog/[slug]/page: /blog/how-to-delete-1c-bitrix
+        /blog/[slug]/page: /blog/lite-youtube-embed-224x-faster
+        /blog/[slug]/page: /blog/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24
+        /blog/[slug]/page: /blog/otpravka-yandex-clientid-iz-tilda-v-crm-bitriks24
+        /blog/[slug]/page: /blog/podkluchenie-yandex-metriki-nextjs
+        /blog/[slug]/page: /blog/podpis-s-iconkami-yandex-pochta
+        /blog/[slug]/page: /blog/table-tilda
+        /blog/[slug]/page: /blog/the-code-of-the-urban-samurai
+        /blog/[slug]/page: /blog/tilda-popup-video-btn
+        /blog/page: /blog
+        /contacts/page: /contacts
+        /notes/[slug]/page: /notes/aspro-next-project-link-tab
+        /notes/[slug]/page: /notes/minusi-saita-na-tilde
+        /notes/[slug]/page: /notes/pizza-recipe
+        /notes/page: /notes
+        /page: /
+        /projects/page: /projects
+        /services/page: /services
+```
+
+## Проблема
+
+Сборке мешает клиентский компонент, который в моем случае использует `useSearchParams()` и `usePathname()`.
+
+Этот хук получает параметры, которые недоступны во время сборки, поэтому он препятствует Static PreRendering - статической предварительной генерации для всего маршрута. Ошибка предполагает, что вы можете воспользоваться потоковой передачей и частично предварительно отобразить части маршрута, которые не зависят от значений времени запроса.
+
+## Решение
+
+1. Найдите компонент, который использует `useSearchParams()` или `usePathname()` (Можете воспользоваться поиском в своем IDE)
+2. Оберните его в `<Suspense>`
+
+В моем случае, я использовал клиентский компонент для передачи праметров в Яндекс Метрику в своем `layout.tsx`
+
+<CodeTitle title='components/YandexMetrika.jsx' lang="js" />
+```jsx
+'use client';
+
+import { useEffect } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+export default function YandexMetrika() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const url = `${pathname}?${searchParams}`;
+    ym(xxxxxxxx, 'hit', url);
+  }, [pathname, searchParams]);
+
+  return null;
+}
+```
+ 
+<CodeTitle title='app/layout.tsx' lang="js" />
+```jsx
+import { Suspense } from "react";
+import YandexMetrika from "@/components/YandexMetrika/YandexMetrika";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+      <html lang="ru">
+        <body>
+          <Suspense fallback={<></>}>
+            <YandexMetrika />
+          </Suspense>
+          <main>{children}</main>
+        </body>
+      </html>
+  );
+}
+```

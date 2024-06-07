@@ -1,0 +1,62 @@
+---
+title: Отправка Яндекс ClientID из 1С-Битрикс в CRM Битрикс24
+date: 2020-09-04
+published: true
+category: [bitrix, other]
+keywords: ClientID, yandex ClientID, ClientID Битрикс24
+excerpt: Настройка отправки Яндекс ClientID в CRM Битрикс24 из формы 1С-Битрикс
+coverImage: http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/clientid.jpg
+---
+
+## Что такое ClientID в Яндекс Метрике?
+
+ClientID — это идентификатор, который Яндекс.Метрика автоматически присваивает каждому посетителю сайта. ClientID уникален для каждого пользователя. Используется для передачи параметров посетителей и для отслеживания офлайн-конверсий.
+
+Идентификатор создается браузером, если посетитель просматривал сайт из двух разных браузеров, в Яндекс.Метрике будет зафиксировано два разных ClientID и два разных пользователя.
+
+По умолчанию ClientID не передается формами 1С-Битрикс, давайте это исправим.
+
+Заходим в админ панель 1С-Битрикс и идем по адресу ```Веб-формы - Настройка форм```. Открываем нужную форму.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-1.png" alt="Открываем нужную форму картинка" />
+
+На вкладке ```«Вопросы»``` создаем скрытое поле.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-2.png" alt="создаем скрытое поле картинка" caption='Создали поле и назвали его YCLID' />
+
+В качестве текста поля указываем пробел.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-3.png" alt="указываем пробел картинка" />
+
+Скрытое поле появилось в разметке формы.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-4.png" alt="Скрытое поле появилось в разметке формы картинка" caption='Именно в это поле мы будем записывать ClientID' />
+
+В параметрах не забываем указать соответствие полей нашей формы и полей из CRM Битрикс24. В данном примере наше поле ```YCLID``` соответствует полю Битриск24 ```UF_CRM_YCLI```.
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-5.png" alt="соответствие полей картинка" />
+
+Пишем небольшой скрипт, который будет получать идентификатор посетителя сайта и записывать в скрытое поле формы. ```yaCounterXXXXXXXX.getClientID();``` - не забудьте указать свой номер счетчика вместо ХХХХХХХХ.
+
+<CodeTitle title='Код скрипта' lang='js' />
+  ```js
+  $( document ).ready(function () {
+    $('.btn').on('click', (e) => {
+      let ee = setInterval(function () {
+        if ($('input[data-sid="YCLID"]')) {
+          console.log('"Элемент найден"');
+          let clientYandexId = yaCounterXXXXXXXX.getClientID();
+          $('input[data-sid="YCLID"]').val(clientYandexId);
+          console.log('"ID записан"');
+          clearInterval(ee);
+        } else {
+          console.log('"Элемент не найден"');
+        }
+      }, 200);
+    });
+});
+  ```
+
+Вставляем скрипт в шаблон сайта.
+
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-6.png" alt="Вставляем скрипт в шаблон сайта картинка" />
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-7.png" alt="Вставляем скрипт в шаблон сайта картинка 2" />
+
+В инспекторе видим, что ClientID успешно заполняется и будет передан вместе с другими полями формы в нашу CRM систему.
+
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/otpravka-yandex-clientid-iz-bitriks-v-crm-bitriks24/1cbitrix-clientid-8.png" alt="clientid успешно заполняется картинка" />

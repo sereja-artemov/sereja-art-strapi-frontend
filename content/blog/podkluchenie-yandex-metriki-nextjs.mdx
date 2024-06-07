@@ -1,0 +1,270 @@
+---
+title: Подключение счетчика Яндекс.Метрики в Next.JS
+date: 2023-06-24
+published: true
+category: [other, seo]
+keywords: nextjs, яндекс метрика, счетчик яндекс метрики, подключение счетчика яндекс метрики
+excerpt: Подключение счетчика Яндекс.Метрики к сайту на Next.JS
+coverImage: http://tech.sereja-art.ru/upload/blogs/podkluchenie-yandex-metriki-nextjs/podkluchenie-yandex-metriki-nextjs-preview.jpg
+---
+
+Нам нужно вставить код счетчика в&nbsp;шаблон, чтобы он&nbsp;присутствовал на&nbsp;всех страницах сайта. Я&nbsp;добавил пример подключения для `Pages Router` и `App Router`.
+
+При инициализации счетчика не&nbsp;забудьте указать `defer: true`, это отключит автоматическую отправку данных о&nbsp;просмотрах. Фиксировать показы страниц будем с&nbsp;помощью функции `hit`, ее&nbsp;нужно вызывать каждый раз, когда посчитаем, что страница изменилась.
+
+Далее буду использовать `hit` в&nbsp;компоненте `YandexMetrika()` и&nbsp;фиксировать показы при изменении url-адреса или параметров в&nbsp;нем.
+
+## Код счетчика
+
+Для подключения используем компонент `<Script />`.
+
+<CodeTitle title='Код счетчика Яндекс Метрики для Next.js' lang='js' />
+```js /XXXXXXXX/ /counter/
+<Script id="metrika-counter" strategy="afterInteractive">
+  {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(XXXXXXXX, "init", {
+          defer: true,
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+    });`
+  }
+</Script>
+```
+
+Вместо ```XXXXXXXX``` вставляете свой id счетчика.
+
+## Используя Pages Router
+
+В&nbsp;случае с&nbsp;использованием Pages Router, я&nbsp;вставляю счетчик яндекс метрики в `_document.tsx`.
+
+<CodeTitle title='src\pages\_document.tsx' lang='js' />
+```js {11-26} /XXXXXXXX/
+import {Html, Head, Main, NextScript} from 'next/document'
+import Script from 'next/script';
+
+export default function Document() {
+  return (
+    <Html lang="ru">
+      <Head/>
+      <body>
+      <Main/>
+      <NextScript/>
+      <Script id="metrika-counter" strategy="afterInteractive">
+        {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+          (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+          ym(XXXXXXXX, "init", {
+                defer: true,
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true,
+                webvisor:true
+          });`
+        }
+      </Script>
+      </body>
+    </Html>
+  )
+}
+```
+
+У&nbsp;меня один общий макет ```<Layout />``` для всего сайта, поэтому я&nbsp;создал Custom App и&nbsp;обернул его этим макетом.
+
+<CodeTitle title='src\pages\_app.tsx' lang='js' />
+```js {35, 37}
+import '@/styles/utils/normalize.css'
+import '@/styles/_variables.scss'
+import '@/styles/globals.scss'
+import type {AppProps} from 'next/app'
+import { Raleway, Roboto } from "next/font/google";
+import Layout from "@/components/Layout/Layout";
+import {DarkModeProvider} from "@/context/darkModeContext";
+import { IconContext } from 'react-icons';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+// @ts-ignore
+import NProgress from 'nprogress';
+import "nprogress/nprogress.css";
+import SEO from "@/components/SEO/SEO";
+// ...other code
+
+export default function App({Component, pageProps}: AppProps) {
+// ...other code
+
+return (
+
+<>
+  <style jsx global>{`
+  html {
+  font-family: ${roboto.style.fontFamily};
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${raleway.style.fontFamily};
+    margin-bottom: 0.5em;
+  }
+  `}</style>
+
+  <DarkModeProvider>
+    <IconContext.Provider value={{ color: 'var(--icons-color)' }}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ IconContext.Provider>
+  </DarkModeProvider>
+</>
+)
+}
+```
+
+Подробнее про единый Layout и&nbsp;Custom App в&nbsp;документации: <a href="https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts" target="_blank" rel="nofollow">https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts</a>
+
+<CodeTitle title='src\components\Layout\Layout.tsx' lang='js' />
+```js {22}
+import { ReactNode, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import Header from '@/components/Header/Header';
+import Footer from '../Footer/Footer';
+import ScrollProgressBar from '@/components/ScrollProgressBar/ScrollProgressBar';
+import { YandexMetrika } from '../YandexMetrika/YandexMetrika';
+import SEO from '../SEO/SEO';
+
+const Cursor = dynamic(() => import('../Cursor/Cursor'), { ssr: false });
+const ScrollTopButton = dynamic(() => import('../../components/ScrollTopButton/ScrollTopButton'), { ssr: false });
+
+type LayoutProps = {
+  children?: ReactNode
+}
+
+export default function Layout({ children }: LayoutProps) {
+
+return (
+
+<>
+  <SEO />
+  <YandexMetrika />
+  <Cursor />
+  <Header />
+  <main className="main-content-pt">{children}</main>
+  <Footer />
+  <ScrollTopButton />
+  <ScrollProgressBar />
+</>
+); }
+```
+
+В&nbsp;макет вставляю компонент ```<YandexMetrika />```, который будет отправлять данные в&nbsp;метрику при изменении URL-адреса или параметров в&nbsp;нем.
+
+<CodeTitle title='src\components\YandexMetrika\YandexMetrika.jsx' lang='js' />
+```js
+'use client'
+
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+
+export function YandexMetrika() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+useEffect(() => {
+  const url = `${pathname}?${searchParams}`
+  ym(XXXXXXXX, 'hit', url);
+
+}, [pathname, searchParams])
+
+  return null
+}
+```
+
+## Используя App Router
+
+В&nbsp;случае с&nbsp;использованием App Router, вставляем счетчик яндекс метрики в&nbsp;файл `layout.tsx` перед закрывающим тегом `body`.
+
+<CodeTitle title='app\layout.tsx' lang='js' />
+```js {24-39}
+import { DarkModeProvider } from '@/context/darkModeContext';
+import './globals.css';
+import { Header } from '@/components/Header/Header';
+import { Suspense } from 'react';
+import Footer from '@/components/Footer/Footer';
+import NextTopLoader from 'nextjs-toploader';
+import YandexMetrika from '@/components/YandexMetrika/YandexMetrika';
+import Script from 'next/script';
+
+export const metadata = {
+  title: 'Create Next App',
+  description: 'Generated by create next app',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <DarkModeProvider>
+      <html lang="ru">
+        <body>
+          <Script id="metrika-counter" strategy="afterInteractive">
+            {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+              m[i].l=1*new Date();
+              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+              (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+              ym(XXXXXXXX, "init", {
+                    defer: true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+              });`
+            }
+          </Script>
+          <Suspense fallback={<></>}>
+            <YandexMetrika />
+          </Suspense>
+          <NextTopLoader height={4} />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </DarkModeProvider>
+  );
+}
+```
+
+Туда&nbsp;же импортируем компонент, который будет отправлять данные в&nbsp;метрику при изменении URL-адреса или параметров в&nbsp;нем и&nbsp;добавляем в&nbsp;наш Layout. Для Next.js 14&nbsp;оборачиваем компонент в&nbsp;`<Suspense>`, чтобы избежать prerendering Error.
+
+<CodeTitle title='components\YandexMetrika\YandexMetrika.jsx' lang='js' />
+```js
+'use client'
+
+import { useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+
+export default function YandexMetrika() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const url = `${pathname}?${searchParams}`
+    ym(XXXXXXXX, 'hit', url);
+
+  }, [pathname, searchParams])
+
+  return null
+}
+```
+
+Официальная документация Яндекса по&nbsp;установке и&nbsp;настройке счетчика для SPA-сайтов: <a href="https://yandex.ru/support/metrica/code/counter-spa-setup.html" target="_blank" rel="nofollow">https://yandex.ru/support/metrica/code/counter-spa-setup.html</a>

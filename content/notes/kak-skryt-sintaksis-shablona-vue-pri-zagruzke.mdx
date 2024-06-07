@@ -1,0 +1,33 @@
+---
+type: Note
+date: 2024-04-03
+title: Как скрыть синтаксис шаблона Vue при загрузке
+excerpt: Директива v-cloak скроет нескомпилированные привязки mustache пока экземпляр Vue не будет готов
+published: true
+category: [web-dev, Vue]
+keywords: vue, v-cloak
+---
+
+При загрузке страницы могут появляться странные символы со&nbsp;скобочками и&nbsp;страница может прыгать. Дело в&nbsp;том, что шаблон Vue еще не&nbsp;загрузился и&nbsp;мы&nbsp;видим синтаксис Mustache, например такой:
+
+`{{ message }}`.
+
+Чтобы это исправить, добавьте родительскому элементу директиву `v-cloak` и&nbsp;напишите css, который будет скрывать блок.
+
+<CodeTitle title='HTML' lang="html" />
+```html
+<div v-cloak>
+  {{ message }}
+</div>
+```
+
+<CodeTitle title='CSS' lang="css" />
+```css
+[v-cloak] {
+  display: none;
+}
+```
+
+Теперь `<div>` не будет виден до завершения компиляции.
+
+<p>Официальная документация тут: <a href="https://vuejs.org/api/built-in-directives.html#v-cloak" target="_blank" rel="nofollow">v-cloak</a></p>

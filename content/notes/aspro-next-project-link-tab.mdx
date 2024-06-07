@@ -1,0 +1,24 @@
+---
+title: Аспро:Некст табы проектов и ссылки в меню
+date: 2021-09-04
+published: true
+category: web-dev
+keywords: аспро некст, табы аспро, ссылки аспро некст проекты
+excerpt: Делаем так, чтобы при клике по ссылке проекта, открывался нужный таб.
+coverImage: ''
+---
+Проблема в Аспро: Некст, который работает на 1С-Битрикс. При клике на&nbsp;ссылку проекта из&nbsp;выпадающего меню, мы&nbsp;всегда попадаем на&nbsp;таб &laquo;Все проекты&raquo;, а&nbsp;хотим попадать на&nbsp;соответствующий ссылке таб. То&nbsp;есть, если кликнули на&nbsp;ссылку &laquo;Роботизация&raquo;, то&nbsp;и&nbsp;попасть должны на&nbsp;таб &laquo;Роботизация&raquo;, но по умолчанию этого не происходит.
+
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/aspro-next-project-link-tab/aspro-next-project-link-tab.png" alt="" caption="Кликнули на&nbsp;&laquo;Плазменную резку&raquo;, а&nbsp;попали на&nbsp;&laquo;Все проекты&raquo;" />
+
+Напишем небольшой костыль. Он получает якорную ссылку из&nbsp;url, затем находит таб, который соответствует ссылке и&nbsp;кликает на&nbsp;него.
+
+<CodeTitle title='Костыль для ссылок проектов в URL' lang="js" />
+  ```html
+    <script>
+      $(document).ready(function() {
+        var filter = window.location.hash.replace('#', '');
+        $('span[data-filter="' + filter + '"]').click();
+      });
+    </script>
+  ```

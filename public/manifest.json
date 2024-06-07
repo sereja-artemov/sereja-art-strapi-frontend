@@ -1,0 +1,9 @@
+{
+  "name": "sereja-art",
+  "short_name": "sereja-art",
+  "theme_color": "#bdbdbd",
+  "background_color": "#e8e8e8",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}

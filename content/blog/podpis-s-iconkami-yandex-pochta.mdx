@@ -1,0 +1,109 @@
+---
+title: Красивая подпись с иконками в Яндекс Почте
+date: 2023-03-03
+category: other
+published: true
+keywords: yandex почта, подпись яндекс почта
+excerpt: Показываю как добавить красивые иконки в подпись Яндекс Почты.
+coverImage: http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/podpis.png
+---
+
+Задача: Красиво оформить подпись Яндекс Почты и&nbsp;добавить иконки социальных сетей, при клике на&nbsp;иконку должен происходить переход в&nbsp;соцсеть.
+
+К&nbsp;сожалению, в&nbsp;редакторе подписи нет встроенного конструктора для html верстки, поэтому расположить иконки в&nbsp;одну строку у&nbsp;нас не&nbsp;получится. Но&nbsp;мы&nbsp;можем сделать это с&nbsp;помощью любого редактора html кода.
+
+## Порядок действий
+
+1. Находим нужные иконки и&nbsp;скачиваем. Рекомендую сайт icons8.ru, там большая бесплатная коллекция иконок.
+2. Загружаем иконки в&nbsp;свое облачное хранилище или на&nbsp;хостинг и&nbsp;получаем прямую ссылку на&nbsp;изображения.
+3. В&nbsp;редакторе кода готовим html код для иконок с&nbsp;ссылками. Используйте табличную верстку для корректного отображения во&nbsp;всех почтовых программах.
+
+
+<CodeTitle title='Пример кода с готовыми иконками для копирования в письмо' lang='html' />
+
+  ```html
+  <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0; padding: 0;">
+    <tr>
+      <td class="social__icon" style="border-collapse: collapse; display: inline-block; padding-left: 0px; padding-right: 6px;">
+        <a
+          target="_blank"
+          href="https://www.instagram.com/tweld.ru/"
+          class="social__link"
+          style="padding-left: 0px; font-size: 14px; line-height: 1.5; text-decoration: underline; color: #222222; font-family: 'Open Sans', arial, sans-serif !important;"
+        >
+          <img
+            width="15"
+            height="15"
+            border="0"
+            src="https://tweld.ru/upload/medialibrary/fa4/mf3a85cbzsnovn2j3med1b58xr2soa4f.png"
+            alt=""
+            class="social__img"
+            style="outline: none; text-decoration: none; border: 0 none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; display: block; height: auto; line-height: 100%; max-width: 100% !important; width: 15px;"
+          />
+        </a>
+      </td>
+      <td class="social__icon" style="border-collapse: collapse; display: inline-block; padding-left: 10px; padding-right: 6px;">
+        <a target="_blank" href="https://vk.com/technoweld" class="social__link" style="font-size: 14px; line-height: 1.5; text-decoration: underline; color: #222222; font-family: 'Open Sans', arial, sans-serif !important;">
+          <img
+            width="15"
+            height="15"
+            border="0"
+            src="https://tweld.ru/upload/medialibrary/d62/tsd3mifx3g6j6o25qw32bga16nax71f2.png"
+            alt=""
+            class="social__img"
+            style="outline: none; text-decoration: none; border: 0 none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; display: block; height: auto; line-height: 100%; max-width: 100% !important; width: 15px;"
+          />
+        </a>
+      </td>
+      <td class="social__icon" style="border-collapse: collapse; display: inline-block; padding-left: 10px; padding-right: 6px;">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/channel/UCq9OrZA5tGqI6aoOG_63wEQ"
+          class="social__link"
+          style="font-size: 14px; line-height: 1.5; text-decoration: underline; color: #222222; font-family: 'Open Sans', arial, sans-serif !important;"
+        >
+          <img
+            width="15"
+            height="15"
+            border="0"
+            src="https://tweld.ru/upload/medialibrary/c04/viyjd8m0qa50bmare2oxy1j205pectpe.png"
+            alt=""
+            class="social__img"
+            style="outline: none; text-decoration: none; border: 0 none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; display: block; height: auto; line-height: 100%; max-width: 100% !important; width: 15px;"
+          />
+        </a>
+      </td>
+      <td class="social__icon" style="border-collapse: collapse; display: inline-block; padding-left: 10px; padding-right: 6px;">
+        <a target="_blank" href="https://www.facebook.com/tweld.ru/" class="social__link" style="font-size: 14px; line-height: 1.5; text-decoration: underline; color: #222222; font-family: 'Open Sans', arial, sans-serif !important;">
+          <img
+            width="15"
+            height="15"
+            border="0"
+            src="https://tweld.ru/upload/medialibrary/104/k4bo9odt6gnrmz85sshnpt1cwzzb6lbp.png"
+            alt=""
+            class="social__img"
+            style="outline: none; text-decoration: none; border: 0 none; -ms-interpolation-mode: bicubic; margin: 0; padding: 0; display: block; height: auto; line-height: 100%; max-width: 100% !important; width: 15px;"
+          />
+        </a>
+      </td>
+    </tr>
+  </table>
+  ```
+
+4. Открываем код в&nbsp;браузере.
+
+<Figcaption src='http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/otkrili-v-brauzere.png' alt='открыли код в браузере' caption='Открыли код в браузере' />
+
+5. Выделяем мышью иконки, копируем и&nbsp;вставляем в&nbsp;подпись письма.
+<Figcaption src='http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/vstavlyaem-podpis.png' alt='открыли код в браузере' caption='Вставили иконки, но они не видны' />
+
+Иконки могут сразу не&nbsp;отображаться, на&nbsp;их&nbsp;месте будет пустая белая область, все нормально, после сохранения они появятся и&nbsp;будут видны.
+
+<Figcaption src='http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/sochranyaem.png' alt='открыли код в браузере' caption='После сохранения иконки появились' />
+<Figcaption src='http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/rezultat-posle-sochraneniya.png' alt='открыли код в браузере' caption='Результат после сохранения' />
+
+Добавляем в&nbsp;подпись остальную информацию.
+
+<Figcaption src="http://tech.sereja-art.ru/upload/blogs/podpis-s-iconkami-yandex-pochta/podpis-yandex-pochta-primer.jpg" alt='Итоговый результат подписи с иконками в яндекс почте' caption='Итоговый результат' />
+
+Вот так легко и&nbsp;просто вы&nbsp;можете сделать красивую подпись в&nbsp;почте и&nbsp;добавить оформление на&nbsp;свой вкус.
