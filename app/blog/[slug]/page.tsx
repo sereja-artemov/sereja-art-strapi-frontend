@@ -172,8 +172,8 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
   }
 
   const { description, title, publishedAt, slug } = post.attributes;
-  const { metaTitle, metaDescription, keywords, metaRobots, structuredData, metaViewport, canonicalURL } = post.attributes.seo;
-  const { metaImage } = postMetaImageData.attributes.seo;
+  const { metaTitle, metaDescription, keywords, metaRobots, structuredData, metaViewport, canonicalURL } = post.attributes?.seo ?? {};
+  const { metaImage } = postMetaImageData.attributes?.seo ?? {};
 
   return {
     metadataBase: new URL('https://sereja-art.ru'),
