@@ -11,8 +11,8 @@ export const projectsData: ProjectType[] = [
     links: {
       buildLink: 'https://prommatic.ru',
     },
-    image: `https://api.sereja-art.ru/uploads/prommatic_1024_4386f3119c.webp`,
-    previewImage: `https://api.sereja-art.ru/uploads/prommatic_1024_4386f3119c.webp`,
+    image: `${baseURL}/uploads/prommatic_1024_4386f3119c.webp`,
+    previewImage: `${baseURL}/uploads/prommatic_1024_4386f3119c.webp`,
     tools: ['1C-Bitrix', 'Aspro', 'SEO', 'Битрикс24', 'Bicall'],
     year: 2022,
     active: true,
@@ -26,7 +26,7 @@ export const projectsData: ProjectType[] = [
     links: {
       buildLink: 'https://robot.tweld.ru',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/tweld_robot_1280x720.jpg',
+    image: 'https://api.sereja-art.ru/uploads/tweld_robot_1280x720_bf476caa88.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'Tilda', 'Bitrix24', 'Bicall'],
     year: 2022,
@@ -42,7 +42,7 @@ export const projectsData: ProjectType[] = [
     links: {
       buildLink: 'https://om2b.ru',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/pmtsom_1280x720.jpg',
+    image: 'https://api.sereja-art.ru/uploads/automotoschool_1280x720_b878d7f4e4.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'Bitrix', 'Аспро: Максимум'],
     year: 2019,
@@ -61,9 +61,9 @@ export const projectsData: ProjectType[] = [
         'http://tech.sereja-art.ru/project-build/family-budget-calculator/',
     },
     image:
-      'http://tech.sereja-art.ru/upload/projects/family-budget-calculator-960x540.jpg',
+      'https://api.sereja-art.ru/uploads/family_budget_calculator_960x540_4c8f30d4f2.jpg',
     previewImage:
-      'http://tech.sereja-art.ru/upload/projects/family-budget-calculator-960x540.jpg',
+      'https://api.sereja-art.ru/uploads/family_budget_calculator_960x540_4c8f30d4f2.jpg',
     tools: ['HTML', 'CSS', 'JS', 'React', 'Дизайн'],
     year: 2022,
     active: true,
@@ -79,9 +79,9 @@ export const projectsData: ProjectType[] = [
       githubLink: '',
       buildLink: '',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/cakedreams_1280x720.png',
+    image: 'https://api.sereja-art.ru/uploads/cakedreams_1280x720_120fe78dfd.png',
     previewImage:
-      'http://tech.sereja-art.ru/upload/projects/cakedreams_1280x720.png',
+      'https://api.sereja-art.ru/uploads/cakedreams_1280x720_120fe78dfd.png',
     tools: ['HTML', 'CSS', 'JS', 'Photoshop'],
     year: 2020,
     active: true,
@@ -98,9 +98,9 @@ export const projectsData: ProjectType[] = [
       githubLink: '',
       buildLink: '',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/ant-farm_1280x720.png',
+    image: 'https://api.sereja-art.ru/uploads/ant_farm_1280x720_ba5b610ce3.png',
     previewImage:
-      'http://tech.sereja-art.ru/upload/projects/ant-farm_1280x720.png',
+      'https://api.sereja-art.ru/uploads/ant_farm_1280x720_ba5b610ce3.png',
     tools: ['HTML', 'CSS', 'JS', 'Photoshop', 'Bicall'],
     year: 2019,
     active: true,
@@ -117,9 +117,9 @@ export const projectsData: ProjectType[] = [
       githubLink: '',
       buildLink: '',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/gloria_1280x720.png',
+    image: 'https://api.sereja-art.ru/uploads/gloria_1280x720_b176fd30f7.png',
     previewImage:
-      'http://tech.sereja-art.ru/upload/projects/gloria_1280x720.png',
+      'https://api.sereja-art.ru/uploads/gloria_1280x720_b176fd30f7.png',
     tools: ['HTML', 'CSS', 'JS', 'Photoshop'],
     year: 2020,
     active: true,
@@ -136,9 +136,9 @@ export const projectsData: ProjectType[] = [
       githubLink: '',
       buildLink: '',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/photograph_1200.webp',
+    image: 'https://api.sereja-art.ru/uploads/photograph_1200_348a1e6085.webp',
     previewImage:
-      'http://tech.sereja-art.ru/upload/projects/photograph_1200.webp',
+      'https://api.sereja-art.ru/uploads/photograph_1200_348a1e6085.webp',
     tools: ['HTML', 'CSS', 'JS', 'Photoshop'],
     year: 2018,
     active: true,
@@ -154,7 +154,7 @@ export const projectsData: ProjectType[] = [
       githubLink: 'https://github.com/sereja-artemov/movies-explorer-frontend',
     },
     image:
-      'http://tech.sereja-art.ru/upload/projects/movies-explorer_1280x720.jpg',
+      'https://api.sereja-art.ru/uploads/movies_explorer_portfolio_2a6eb2ce66.png',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'React', 'Node.js', 'MongoDB'],
     year: 2022,
@@ -170,7 +170,7 @@ export const projectsData: ProjectType[] = [
     links: {
       githubLink: 'https://github.com/sereja-artemov/react-mesto-api-full',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/mesto_1280x720.jpg',
+    image: 'https://api.sereja-art.ru/uploads/mesto_1280x720_aa5fb3b0fe.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'React', 'Node.js', 'MongoDB'],
     year: 2022,
@@ -184,7 +184,7 @@ export const projectsData: ProjectType[] = [
     links: {
       githubLink: 'https://github.com/sereja-artemov/catenergy',
     },
-    image: 'http://tech.sereja-art.ru/upload/projects/catenergy_1280x720.jpg',
+    image: 'https://api.sereja-art.ru/uploads/catenergy_1280x720_b6dea5571b.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS'],
     year: 2020,
@@ -197,7 +197,7 @@ export const projectsData: ProjectType[] = [
     date: new Date('2020-09-12'),
     cost: 123,
     links: {},
-    image: 'http://tech.sereja-art.ru/upload/projects/pchelp_1280x720.jpg',
+    image: 'https://api.sereja-art.ru/uploads/pchelp_1280x720_4e6842e57d.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'Photoshop'],
     year: 2020,
@@ -212,7 +212,7 @@ export const projectsData: ProjectType[] = [
     cost: 123,
     links: {},
     image:
-      'http://tech.sereja-art.ru/upload/projects/automotoschool_1280x720.jpg',
+      'https://api.sereja-art.ru/uploads/automotoschool_1280x720_b878d7f4e4.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'Bootstrap', 'Photoshop'],
     year: 2017,
