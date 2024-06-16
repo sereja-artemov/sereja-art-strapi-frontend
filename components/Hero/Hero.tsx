@@ -13,8 +13,7 @@ const Hero = () => {
           </h1>
           <div className="lg:flex lg:flex-row-reverse lg:shrink-0 lg:items-center lg:gap-7">
             <p className="mb-5 text-sm lg:mb-0 lg:text-base">
-              frontend-разработчик, веб-дизайнер,<br /> специалист по контекстной
-              рекламе
+              frontend-разработчик, веб-дизайнер,<br /> интересуюсь интернет-маркетингом
             </p>
             <div className='p-0.5 inline-block shrink-0 lg:p-1 border border-whiteSecondary/30 rounded-full'>
               {/* <button
