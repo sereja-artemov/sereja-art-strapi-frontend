@@ -18,6 +18,10 @@ const nextConfig = {
         hostname: 'tech.sereja-art.ru',
       },
       {
+        protocol: 'https',
+        hostname: 'api.sereja-art.ru',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
         port: '1337',
