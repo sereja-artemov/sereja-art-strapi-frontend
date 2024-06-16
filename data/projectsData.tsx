@@ -11,8 +11,8 @@ export const projectsData: ProjectType[] = [
     links: {
       buildLink: 'https://prommatic.ru',
     },
-    image: `${baseURL}/uploads/prommatic_1024_4386f3119c.webp`,
-    previewImage: `${baseURL}/uploads/prommatic_1024_4386f3119c.webp`,
+    image: `https://api.sereja-art.ru/uploads/prommatic_1024_4386f3119c.webp`,
+    previewImage: `https://api.sereja-art.ru/uploads/prommatic_1024_4386f3119c.webp`,
     tools: ['1C-Bitrix', 'Aspro', 'SEO', 'Битрикс24', 'Bicall'],
     year: 2022,
     active: true,
