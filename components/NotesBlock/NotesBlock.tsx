@@ -17,7 +17,7 @@ async function NotesBlock() {
         >
           <Link
             className="flex gap-1.5 [&>svg]:w-[1.4em] [&>svg]:h-auto"
-            href={`${process.env.HOST}/notes/${note.attributes.slug}`}
+            href={`${process.env.DB_HOST}/notes/${note.attributes.slug}`}
           >
             {note.attributes.title}
             <svg
