@@ -5,13 +5,15 @@ import {
 } from 'react-icons/ai';
 import getLocaleDate from '@/lib/getLocaleDate';
 import Link from 'next/link';
-import { getPosts } from '@/lib/getPosts';
+import { getPosts, modifyPostData } from '@/lib/getPosts';
 import { baseURL } from '@/constants/constants';
 
 export default async function PostBlock() {
-  const posts = await getPosts('posts');
-  const post = posts.data[0];
-  
+  const {data: posts} = await getPosts('posts');
+  const post = posts[0];
+
+  modifyPostData(posts);
+
   return (
     <article className="flex flex-col h-full rounded-xl">
       <div className="mb-0 overflow-hidden rounded-lg sm:border border-blockBorderColorLight/50 dark:border-blockBorderColorDark/50">

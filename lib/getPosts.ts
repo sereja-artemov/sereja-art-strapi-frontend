@@ -92,6 +92,17 @@ export async function getPostSeoData(postType: string, slug: string, param: stri
   return data;
 }
 
+export function modifyPostData(data) {
+  data.forEach(post => {
+    // add reading time
+    let readingTime = getReadingTime(post.attributes.body);
+    post.attributes.readingTime = readingTime;
+    // add toc
+    let toc = getTableOfContents(post.attributes.body);
+    post.attributes.tableOfContents = toc;
+  });
+}
+
 
 /* Получаем post по значению slug (это пост с контентом и front matter)  */
 // export async function getPostFromSlug(slug: string, postTypeDir: string) {

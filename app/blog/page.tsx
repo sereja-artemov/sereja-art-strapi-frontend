@@ -1,7 +1,7 @@
 import PostList from '@/components/PostList/PostList';
 import { Search } from '@/components/Search/Search';
 import { baseURL } from '@/constants/constants';
-import { getPosts, getTableOfContents } from '@/lib/getPosts';
+import { getPosts, getTableOfContents, modifyPostData } from '@/lib/getPosts';
 import getReadingTime from '@/lib/readingTime';
 import { notFound } from 'next/navigation';
 import qs from 'qs';
@@ -18,17 +18,6 @@ export default async function Blog({searchParams}: {
 
 
   modifyPostData(posts);
-
-  function modifyPostData(data) {
-    data.forEach(post => {
-      // add reading time
-      let readingTime = getReadingTime(post.attributes.body);
-      post.attributes.readingTime = readingTime;
-      // add toc
-      let toc = getTableOfContents(post.attributes.body);
-      post.attributes.tableOfContents = toc;
-    });
-  }
 
   if (!posts) return notFound()
 
