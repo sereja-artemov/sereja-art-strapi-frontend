@@ -11,7 +11,7 @@ async function NotesBlock() {
     <ul className="flex flex-col gap-2 xl:text-sm lg:text-base">
       {filteredNotes.map((note: NoteType) => (
         <li
-          className="py-1 pb-2 leading-snug border-b w-fit border-darkPrimary/20 dark:border-whiteSecondary/30"
+          className="py-1 pb-2 leading-snug border-b w-full border-darkPrimary/20 dark:border-whiteSecondary/30"
           key={note.attributes.id}
         >
           <Link
@@ -20,7 +20,7 @@ async function NotesBlock() {
           >
             {note.attributes.title}
             <svg
-              className="shrink-0"
+              className="shrink-0 ml-auto"
               width="24"
               height="24"
               viewBox="0 0 24 24"
