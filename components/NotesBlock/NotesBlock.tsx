@@ -3,7 +3,6 @@ import { NoteType } from '@/lib/types';
 import Link from 'next/link';
 
 async function NotesBlock() {
-  
   const {data: notes} = await getPosts('notes');
   //получаем 7 активных записей
   const filteredNotes = notes.slice(0, 7);
