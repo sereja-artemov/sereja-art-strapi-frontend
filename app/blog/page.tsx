@@ -32,7 +32,7 @@ export default async function Blog({searchParams}: {
 
 async function getFilteredPosts(queryString: string) {
   const query = qs.stringify({
-    sort: ["createdAt:desc"],
+    sort: ["publishedAt:desc"],
     filters: {
       $or: [
         { title: { $containsi: queryString } },
