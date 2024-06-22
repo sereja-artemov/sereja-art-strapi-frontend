@@ -81,9 +81,8 @@ const DonationBlog = () => {
       </div>
       <div>
         <div className='lg:flex gap-2 items-center'>
-          <span className='text-7xl lg:text-5xl mb-5 inline-block'>☕</span>
           <h5 className="mb-2 font-boss uppercase text-xl font-bold lg:font-extrabold lg:text-4xl leading-6">
-            Купите мне кофе!
+            Купите мне кофе
           </h5>
         </div>
         <p className='leading-6 mb-4 lg:text-base lg:mb-6'>Это помогает создавать больше полезных и интересных материалов.</p>

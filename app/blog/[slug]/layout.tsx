@@ -7,7 +7,7 @@ export default function BlogPageLayout({
 }) {
   return <>{children}
     <section className="pt-8">
-      <DonationBlog />
+      {/* <DonationBlog /> */}
     </section>
   </>;
 }

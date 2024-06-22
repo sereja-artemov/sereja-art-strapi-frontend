@@ -7,7 +7,7 @@ export default function SlugPageLayout({
 }) {
   return <>{children}
     <section className="pt-10">
-      <DonationBlog />
+      {/* <DonationBlog /> */}
     </section>
   </>;
 }

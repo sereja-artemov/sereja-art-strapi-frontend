@@ -117,7 +117,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   robots: {
-    index: false,
+    index: true,
     follow: true,
     googleBot: {
       index: true,
