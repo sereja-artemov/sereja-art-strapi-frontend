@@ -33,7 +33,7 @@ export default function Figcaption({ src, caption, alt, vertical }: figcaptionPr
   } else {
     return (
       <Image
-        className='w-auto mx-auto'
+        className={`${vertical && 'w-full h-auto max-w-[450px]'} w-auto mx-auto`}
         width={1920}
         height={1080}
         src={src}
