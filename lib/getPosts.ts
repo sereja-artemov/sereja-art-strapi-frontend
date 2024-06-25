@@ -67,7 +67,7 @@ export async function getPosts(postType: string) {
 }
 
 export async function getPostBySlug(postType: string, slug: string) {
-  const res = await fetch(`${process.env.DB_HOST}/api/${postType}/${slug}?populate=*`, {
+  const res = await fetch(`${process.env.DB_HOST}/api/${postType}/${slug}?populate=*&publicationState=live`, {
     next: { revalidate: 10 },
   });
   if (!res.ok) {
