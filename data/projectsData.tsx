@@ -154,7 +154,7 @@ export const projectsData: ProjectType[] = [
       githubLink: 'https://github.com/sereja-artemov/movies-explorer-frontend',
     },
     image:
-      'https://api.sereja-art.ru/uploads/movies_explorer_portfolio_2a6eb2ce66.png',
+      'https://api.sereja-art.ru/uploads/movies_explorer_1280x720_df68cdb449.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'React', 'Node.js', 'MongoDB'],
     year: 2022,

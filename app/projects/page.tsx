@@ -6,7 +6,6 @@ import { BsGithub } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
 
 function Projects() {
-  console.log(projectsData);
   
   return (
     <>
