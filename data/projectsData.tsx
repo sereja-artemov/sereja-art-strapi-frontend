@@ -42,7 +42,7 @@ export const projectsData: ProjectType[] = [
     links: {
       buildLink: 'https://om2b.ru',
     },
-    image: 'https://api.sereja-art.ru/uploads/automotoschool_1280x720_b878d7f4e4.jpg',
+    image: 'https://api.sereja-art.ru/uploads/pmtsom_1280x720_6817887d27.jpg',
     previewImage: '',
     tools: ['HTML', 'CSS', 'JS', 'Bitrix', 'Аспро: Максимум'],
     year: 2019,
