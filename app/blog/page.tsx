@@ -1,3 +1,4 @@
+import Pagination from '@/components/Pagination/Pagination';
 import PostList from '@/components/PostList/PostList';
 import { Search } from '@/components/Search/Search';
 import { baseURL } from '@/constants/constants';
@@ -14,8 +15,9 @@ export default async function Blog({searchParams}: {
 }) {
   // const {data: posts, meta} = await getPosts('posts');
   const query = searchParams?.query ?? "";
-  const {data: posts, meta} = await getFilteredPosts(query);
+  const currentPage = searchParams?.page ?? "";
 
+  const {data: posts, meta} = await getFilteredPosts(query, currentPage);
 
   modifyPostData(posts);
 
@@ -26,11 +28,14 @@ export default async function Blog({searchParams}: {
       <h1 className="block-title">Блог</h1>
       <Search />
       <PostList posts={posts} />
+      <Pagination pagination={meta.pagination} />
     </>
   );
 }
 
-async function getFilteredPosts(queryString: string) {
+async function getFilteredPosts(queryString: string, currentPage: string | number) {
+  const PAGE_SIZE = 9;
+
   const query = qs.stringify({
     sort: ["publishedAt:desc"],
     filters: {
@@ -39,6 +44,10 @@ async function getFilteredPosts(queryString: string) {
         { description: { $containsi: queryString } },
       ],
     },
+    pagination: {
+      pageSize: PAGE_SIZE,
+      page: currentPage,
+    }
   });
   const url = new URL("/api/posts", baseURL);
   url.search = query;

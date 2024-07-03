@@ -11,7 +11,7 @@ interface CategoryType {
 
 const PostList = ({ posts }: { posts: PostType[] }) => {
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 mb-8 lg:mb-12">
       {posts.length === 0 && <p>или не найдете...</p>}
       {posts.map((post, index) => (
         <PostCard key={index} {...post} />
