@@ -4,6 +4,7 @@ import CodeTitle from "./CodeTitle/CodeTitle";
 import YouTubeEmbed from '@/components/MDXComponents/YouTube';
 import Video from '@/components/MDXComponents/Video';
 import Link from 'next/link';
+import TimeWebCreative from './TimeWebCreative';
 
 const MDXComponentsCustom: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
@@ -11,6 +12,7 @@ const MDXComponentsCustom: MDXComponents = {
   CodeTitle,
   YouTubeEmbed,
   Video,
+  TimeWebCreative,
 };
 
 export default MDXComponentsCustom;

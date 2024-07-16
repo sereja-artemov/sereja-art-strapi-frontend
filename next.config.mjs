@@ -27,6 +27,11 @@ const nextConfig = {
         port: '1337',
         // pathname: '/uploads/**'
       },
+      {
+        protocol: 'https',
+        hostname: 'wm.timeweb.ru',
+        pathname: '/images/posters/**'
+      },
     ],
   },
   async redirects() {
