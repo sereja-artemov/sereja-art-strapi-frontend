@@ -30,7 +30,7 @@ const Navigation = () => {
     <>
       <ul className="hidden h-auto p-1 overflow-auto border rounded-full lg:flex border-darkPrimary/50 dark:border-whiteSecondary/30">
         {navigationRoutes.map((route, index) => {
-          const isActive = pathname === route.route;
+          const isActive = pathname.includes(route.route);
 
           return (
             <li key={index} className="flex items-stretch">

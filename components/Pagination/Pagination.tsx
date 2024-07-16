@@ -28,9 +28,9 @@ const Pagination = ({pagination}: paginationProps) => {
 
   return (
     <ul className='flex justify-center'>
-      <li><Link href={currentPage <= 1 ? 'javascript:void(0);' : createPageURL(currentPage - 1)} className={`${currentPage <= 1 && "opacity-0 cursor-default"} default-btn-color border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full p-4 h-12 flex justify-center items-center md:text-base text-sm`}>Назад</Link></li>
+      <li><Link href={currentPage <= 1 ? `${(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => e.preventDefault}` : createPageURL(currentPage - 1)} className={`${currentPage <= 1 && "opacity-0 cursor-default"} default-btn-color border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full p-4 h-12 flex justify-center items-center md:text-base text-sm`}>Назад</Link></li>
       <li className="border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full p-4 aspect-square h-12 flex justify-center items-center md:text-base text-sm">{currentPage}</li>
-      <li><Link href={currentPage >= pagination.pageCount ? 'javascript:void(0);' : createPageURL(currentPage + 1)} className={`${currentPage >= pagination.pageCount && "opacity-0 cursor-default"} default-btn-color border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full p-4 h-12 flex justify-center items-center md:text-base text-sm`}>Вперед</Link></li>
+      <li><Link href={currentPage >= pagination.pageCount ? `${(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => e.preventDefault}` : createPageURL(currentPage + 1)} className={`${currentPage >= pagination.pageCount && "opacity-0 cursor-default"} default-btn-color border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full p-4 h-12 flex justify-center items-center md:text-base text-sm`}>Вперед</Link></li>
     </ul>
   )
 }

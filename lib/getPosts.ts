@@ -5,6 +5,7 @@ import GithubSlugger from 'github-slugger';
 import getReadingTime from '@/lib/readingTime';
 import { PostType } from './types';
 import { cache } from 'react';
+import qs from 'qs';
 
 // export const getPosts = cache(async (postTypeDir: string) => {
 //   const posts = await fs.readdir(`./content/${postTypeDir}`);
@@ -66,7 +67,44 @@ export async function getPosts(postType: string) {
   return data;
 }
 
+export async function getCategories() {
+  const query = qs.stringify(
+    {
+      // fields: ['name', 'renamedCategory'],
+      publicationState: 'live',
+      populate: '*',
+    },
+    {
+      encodeValuesOnly: true, // prettify URL
+    },
+  );
+  
+  const res = await fetch(`${process.env.DB_HOST}/api/categories?${query}`, {
+    next: { revalidate: 10 },
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  const data = await res.json()
+
+  return data;
+}
+
 export async function getPostBySlug(postType: string, slug: string) {
+  const res = await fetch(`${process.env.DB_HOST}/api/${postType}/${slug}?populate=*&publicationState=live`, {
+    next: { revalidate: 10 },
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  const data = await res.json();
+
+  return data;
+}
+
+export async function getPostsByCategory(postType: string, slug: string) {
   const res = await fetch(`${process.env.DB_HOST}/api/${postType}/${slug}?populate=*&publicationState=live`, {
     next: { revalidate: 10 },
   });
@@ -102,38 +140,6 @@ export function modifyPostData(data) {
     post.attributes.tableOfContents = toc;
   });
 }
-
-
-/* Получаем post по значению slug (это пост с контентом и front matter)  */
-// export async function getPostFromSlug(slug: string, postTypeDir: string) {
-//     const postPath = `./content/${postTypeDir}/${slug}.mdx`;
-//     // const postPath = path.join(this.POST_PATH, `${slug}.mdx`);
-//     const fileContent = await fs.readFile(postPath, 'utf8');
-//     const fileUrl = `${postTypeDir}/${slug}`;
-//     const {data, content} = matter(fileContent);
-
-//     const readingTime = getReadingTime(content);
-//     const tableOfContents = getTableOfContents(content);
-
-//     if (!data.published) return {post: null};
-
-//     const post: PostType | any = {
-//       // ...data,
-//       published: data.published,
-//       title: data.title,
-//       excerpt: data.excerpt,
-//       keywords: data.keywords,
-//       date: data.date,
-//       coverImage: data.coverImage,
-//       slug,
-//       url: fileUrl,
-//       body: content,
-//       readingTime,
-//       tableOfContents,
-//     }
-
-//   return post;
-// }
 
 export const getTableOfContents = (markdown: string) => {
   const slugger = new GithubSlugger();

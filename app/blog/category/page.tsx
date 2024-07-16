@@ -15,13 +15,12 @@ export default async function Blog({searchParams}: {
     page?: string;
   };
 }) {
-  // const {data: posts, meta} = await getPosts('posts');
   const query = searchParams?.query ?? "";
   const currentPage = searchParams?.page ?? "";
 
   const {data: posts, meta} = await getFilteredPosts(query, currentPage);
   const {data: categories} = await getCategories();
-
+  
   modifyPostData(posts);
 
   if (!posts) return notFound()
@@ -55,6 +54,7 @@ async function getFilteredPosts(queryString: string, currentPage: string | numbe
       page: currentPage,
     }
   });
+
   const url = new URL("/api/posts", baseURL);
   url.search = query;
   

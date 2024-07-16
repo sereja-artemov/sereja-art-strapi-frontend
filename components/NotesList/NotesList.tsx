@@ -9,12 +9,18 @@ interface CategoryType {
 
 const NotesList = ({ posts }: { posts: NoteType[] }) => {
   return (
-    <div className="inline-flex flex-wrap gap-2">
-      {posts.length === 0 && <p>или не найдете...</p>}
-      {posts.map((note) => (
-        <NoteCard key={note.id} {...note} />
-      ))}
-    </div>
+    <>
+      {posts.length === 0 && (
+        <p className="text-center font-bold font-boss opacity-30 lg:mt-10 lg:text-7xl text-3xl mt-8">
+          или не найдете...
+        </p>
+      )}
+      <div className="inline-flex flex-wrap gap-2">
+        {posts.map((note) => (
+          <NoteCard key={note.id} {...note} />
+        ))}
+      </div>
+    </>
   );
 };
 

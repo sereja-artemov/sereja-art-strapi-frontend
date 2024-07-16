@@ -13,7 +13,6 @@ export function Search() {
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
-    // params.set('page', '1');
 
     if (term) {
       params.set('query', term);
@@ -32,7 +31,7 @@ export function Search() {
   }
 
   return (
-    <form className="mb-4 max-w-[750px] mx-auto flex md:text-4xl text-xl items-center gap-1 relative">
+    <form onSubmit={(e) => e.preventDefault() } className="mb-4 max-w-[750px] mx-auto flex md:text-4xl text-xl items-center gap-1 relative">
       <input
         ref={searchField}
         onChange={(e) => handleSearch(e.target.value)}

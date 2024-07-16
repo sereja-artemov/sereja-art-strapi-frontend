@@ -1,42 +1,52 @@
 'use client';
 
 import { NoteType, PostType } from '@/lib/types';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface CategoryType {
-  category: string;
-  renamedCategory: string;
+  id: number;
+  attributes: {
+    name: string;
+    renamedCategory: string;
+    posts: PostType[];
+    notes: NoteType[];
+  };
 }
 
-const FilterPosts = ({
-  categories,
-  onClickHandler,
-  activeCategory,
-}: {
-  posts: PostType[] | NoteType[];
-  categories: CategoryType[];
-  onClickHandler: any;
-  activeCategory: string;
-}) => {
+export default function FilterPosts({ categories }: any) {
+  const pathname = usePathname();
+  const blogCategoryPath = `/blog/category`;
+
   return (
     <ul className="flex flex-wrap justify-center mb-4">
-      {categories.map((category, index) => {
-        return (
-          <li key={index}>
-            <button
-              onClick={onClickHandler}
-              className={`${
-                activeCategory === category.category &&
-                'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary'
-              } btn border-darkPrimary/50 dark:border-whiteSecondary/20 text-xl md:text-base mb-1`}
-              id={category.category}
-              type="button">
-              {category.renamedCategory}
-            </button>
-          </li>
-        );
+      <li>
+        <Link
+          href={`/blog`}
+          className={`${
+            (pathname === blogCategoryPath || pathname === `/blog`)  &&
+            'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary'
+          } btn border-darkPrimary/50 dark:border-whiteSecondary/20 text-xl md:text-base mb-1`}>
+          Все
+        </Link>
+      </li>
+      {categories?.map((category: CategoryType) => {
+        if (category.attributes.posts.data.length > 0) {
+          return (
+            <li key={category.id}>
+              <Link
+                href={`${blogCategoryPath}/${category.attributes.name}`}
+                className={`${
+                  pathname === `${blogCategoryPath}/${category.attributes.name}` &&
+                  'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary'
+                } btn border-darkPrimary/50 dark:border-whiteSecondary/20 text-xl md:text-base mb-1`}>
+                {category.attributes.renamedCategory}
+              </Link>
+            </li>
+          );
+        }
+        
       })}
     </ul>
   );
-};
-
-export default FilterPosts;
+}
