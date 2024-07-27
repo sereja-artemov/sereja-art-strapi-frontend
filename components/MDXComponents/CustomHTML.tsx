@@ -11,6 +11,9 @@ export default function InnerHtmlScript({creative, bg}: any) {
     case 'tripster-vn-hoshimin':
       script = `<script async src="https://c11.travelpayouts.com/content?trs=335720&shmarker=559764.vn&city=%D0%A5%D0%BE%D1%88%D0%B8%D0%BC%D0%B8%D0%BD&num=2&powered_by=true&widget_template=horizontal-list&logo=true&notitle=false&nolistbutton=false&price=false&widgetbar=false&widgetbar_position=top&erid=2VtzquyUDHk&promo_id=4218" charset="utf-8"></script>`;
       break;
+    case 'yandex-vn-hoshimin':
+      script = `<script async src="https://c193.travelpayouts.com/content?trs=335720&shmarker=559764.vn&city=10553&sorting=high_rating&theme=light&powered_by=true&erid=2VtzqvD1CB4&promo_id=8582" charset="utf-8"></script>`;
+      break;
     case 'tripster-vn-hoyan':
       script = `<script async src="https://c11.travelpayouts.com/content?trs=335720&shmarker=559764.vn&type=experience&city=%D0%94%D0%B0%D0%BD%D0%B0%D0%BD%D0%B3&query=%D1%85%D0%BE%D0%B9%D0%B0%D0%BD&num=1&powered_by=true&widget_template=horizontal-list&logo=true&notitle=false&nolistbutton=false&price=false&widgetbar=false&widgetbar_position=top&erid=2VtzqvpEQZY&promo_id=4223" charset="utf-8"></script>`;
       break;
