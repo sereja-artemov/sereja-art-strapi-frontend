@@ -61,7 +61,7 @@ const CardsGrid = () => {
         cssGridClassName="border border-darkPrimary/50 dark:border-whiteSecondary/30 lg:row-span-1 col-span-full lg:col-start-7 flex flex-col"
         isBgTransparent
       >
-        <span className='m-auto text-sm flex text-secondTextColor'>
+        <span className='m-auto text-sm flex text-secondTextColor dark:text-secondTextColorDark'>
           а тут ничего нет.
         </span>
       </CardWrapper>

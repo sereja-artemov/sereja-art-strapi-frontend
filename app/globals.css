@@ -152,7 +152,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
   }
 
   .block-border {
-    @apply border border-[#efefef] dark:border-[#464646];
+    @apply border border-[#e6e5e5] dark:border-[#464646];
   }
 
   .block-title {

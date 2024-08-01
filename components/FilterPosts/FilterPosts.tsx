@@ -24,9 +24,10 @@ export default function FilterPosts({ categories }: any) {
         <Link
           href={`/blog`}
           className={`${
-            (pathname === blogCategoryPath || pathname === `/blog`)  &&
-            'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary'
-          } btn border-darkPrimary/50 dark:border-whiteSecondary/20 text-xl md:text-base mb-1`}>
+            pathname === blogCategoryPath || pathname === `/blog`
+              ? 'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary block-border  pointer-events-none'
+              : ''
+          } btn border-none text-xl md:text-base mb-1 dark:hover:bg-darkSecondary hover:bg-darkSecondary/5`}>
           Все
         </Link>
       </li>
@@ -37,15 +38,15 @@ export default function FilterPosts({ categories }: any) {
               <Link
                 href={`${blogCategoryPath}/${category.attributes.name}`}
                 className={`${
-                  pathname === `${blogCategoryPath}/${category.attributes.name}` &&
-                  'bg-darkPrimary text-whitePrimary dark:bg-whitePrimary dark:text-darkPrimary'
-                } btn border-darkPrimary/50 dark:border-whiteSecondary/20 text-xl md:text-base mb-1`}>
+                  pathname === `${blogCategoryPath}/${category.attributes.name}`
+                    ? 'bg-darkPrimary dark:bg-whitePrimary text-whitePrimary dark:text-darkPrimary pointer-events-none'
+                    : ''
+                } btn border-none text-xl md:text-base mb-1 dark:hover:bg-darkSecondary hover:bg-darkSecondary/5`}>
                 {category.attributes.renamedCategory}
               </Link>
             </li>
           );
         }
-        
       })}
     </ul>
   );

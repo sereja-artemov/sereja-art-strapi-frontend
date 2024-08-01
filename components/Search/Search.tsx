@@ -38,7 +38,7 @@ export function Search() {
         defaultValue={searchParams.get('query')?.toString()}
         type="search"
         id="default-search"
-        className="w-full py-[.4em] leading-none px-[1em] border border-darkPrimary/50 dark:border-whiteSecondary/30 rounded-full bg-whiteSecondary md:pr-[75px] pr-[45px] dark:text-whitePrimary dark:bg-darkSecondary"
+        className="w-full py-[.4em] leading-none px-[1em] border block-border rounded-full bg-whiteSecondary md:pr-[75px] pr-[45px] dark:text-whitePrimary dark:bg-darkSecondary"
         placeholder="Начните искать и вы найдете..."
         required
       />

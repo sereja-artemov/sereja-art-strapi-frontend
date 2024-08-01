@@ -18,8 +18,8 @@ export default function PostCard(post: any) {
   const windowSize = useWindowSize();
 
   return (
-    <article className="flex flex-col border bg-whiteSecondary dark:bg-darkSecondary rounded-xl border-blockBorderColorLight dark:border-blockBorderColorDark">
-      <div className="m-3 mb-0 overflow-hidden rounded-lg sm:border border-blockBorderColorLight/50 dark:border-blockBorderColorDark/50">
+    <article className="flex flex-col block-border bg-whiteSecondary dark:bg-darkSecondary rounded-xl">
+      <div className="m-3 mb-0 overflow-hidden rounded-lg border border-blockBorderColorLight/50 dark:border-blockBorderColorDark/50">
         <Link href={`/blog/${post.attributes.slug}`}>
           <Image
             className="w-full h-auto"
@@ -63,7 +63,7 @@ export default function PostCard(post: any) {
           {post.attributes.description}
         </p>
         <Link
-          className="flex items-center justify-between default-btn-color gap-3 px-5 py-1 mt-auto font-semibold uppercase border rounded-xl lg:text-base border-blockBorderColorLight dark:border-blockBorderColorDark"
+          className="flex items-center justify-between default-btn-color gap-3 px-5 py-1 mt-auto font-semibold uppercase rounded-xl lg:text-base block-border"
           href={`/blog/${post.attributes.slug}`}
         >
           <p>Читать</p>
