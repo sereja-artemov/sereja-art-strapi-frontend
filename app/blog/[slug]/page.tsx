@@ -177,6 +177,9 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
 
   return {
     metadataBase: new URL('https://sereja-art.ru'),
+    alternates: {
+      canonical: `${process.env.HOST}/blog/${slug}`,
+    },
     title: `${metaTitle || title} — sereja-art`,
     description: metaDescription || description,
     keywords,
