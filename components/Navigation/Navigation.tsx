@@ -20,10 +20,12 @@ const Navigation = () => {
     };
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     closeMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   return (
