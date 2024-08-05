@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import avatarPhoto from '@/public/images/about-photo.png';
 import Skills from '@/components/Skills/Skills';
+import { Metadata } from 'next';
 
 function About() {
   return (
@@ -36,3 +37,10 @@ function About() {
 }
 
 export default About;
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://sereja-art.ru'),
+  alternates: {
+    canonical: '/about',
+  },
+}
