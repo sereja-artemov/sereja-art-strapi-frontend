@@ -6,6 +6,7 @@ import Video from '@/components/MDXComponents/Video';
 import Link from 'next/link';
 import TimeWebCreative from './TimeWebCreative';
 import InnerHtmlScript from './CustomHTML';
+import Pre from './Pre';
 
 const MDXComponentsCustom: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
@@ -15,6 +16,7 @@ const MDXComponentsCustom: MDXComponents = {
   Video,
   TimeWebCreative,
   InnerHtmlScript,
+  pre: Pre,
 };
 
 export default MDXComponentsCustom;
